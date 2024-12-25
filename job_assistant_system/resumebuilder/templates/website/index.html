@@ -1,5 +1,63 @@
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-    <p class="text-5xl font-bold text-red-950 underline text-center">Hi, Chekcing tailwind</p>
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <nav class="flex justify-between items-center py-5 px-5 shadow-lg sticky">
+        <div class="left">
+            <a href="#" class="font-bold text-2xl">JOBMATE</a>
+        </div>
+        <div class="mid hidden md:flex">
+            <ul class="flex space-x-7">
+                <li><a href="#" class="hover:underline hover:text-blue-400">Home</a></li>
+                <li><a href="#" class="hover:underline hover:text-blue-400">services</a></li>
+                <li><a href="#" class="hover:underline hover:text-blue-400">About</a></li>
+                <li><a href="#" class="hover:underline hover:text-blue-400">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="right flex items-center space-x-4">
+            <button class="md:hidden text-lg">☰</button>
+            <div class="hidden md:flex space-x-3">
+                <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">SignUp</button>
+                <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</button>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="content relative">
+        <img src="/img1.jpeg" alt="" class="w-full h-[25rem] md:h-[38rem] object-cover">
+        <div
+            class="absolute inset-0 w-full bg-black bg-opacity-50 flex flex-col justify-center space-y-4 px-20 md:px-[11rem] ">
+            <h1 class="font-bold text-white text-3xl md:text-6xl">Elevate your career</h1>
+            <p class="text-white text-lg md:text-2xl">Unlock your potential with AI tools</p>
+            <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-fit">VIEW SERVICES</button>
+        </div>
+    </div>
+
+    <div class="mt-10 flex flex-col md:flex-row md:items-center space-y-10 md:space-y-0 px-10 md:px-40 md:py-40">
+        <div class="left flex flex-col justify-center space-y-2 md:w-2/3">
+            <h1 class="font-bold text-xl md:text-2xl text-green-600">YOUR AI JOB ASSISTANT</h1>
+            <h3 class="font-bold text-2xl md:text-4xl">Empowering your career journey</h3>
+            <p class="text-gray-700 text-base md:text-lg leading-relaxed">JobMate AI offers cutting-edge solutions for
+                job seekers in Pokhara, NP. Our advanced platform integrates HTML, CSS,
+                Tailwind CSS, JavaScript, Python, Django, and MySQL to create seamless user experiences. With features
+                like CV creation
+                using stylish templates, skill-building resources from top platforms like Coursera and Udemy, AI-driven
+                resume auditing,
+                and LinkedIn profile optimization, we empower you to elevate your job search and career prospects.</p>
+        </div>
+        <div class="right md:w-1/2">
+            <img src="/img2.jpeg" class="w-full h-[25rem] md:h-[30rem] object-cover" alt="">
+        </div>
+    </div>
+</body>
+
+</html>
