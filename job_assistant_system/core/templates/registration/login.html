@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'core/layout.html' %}
 {% block title %}
 
 {% endblock %}
@@ -9,7 +9,7 @@
         <h1 class="font-bold text-2xl mb-10 text-center">Login to your account</h1>
 
         <form action="" class="space-y-6">
-            
+
             <div class="flex flex-col">
                 <label for="email" class="text-md font-semibold">Email</label>
                 <input id="email"
@@ -22,7 +22,7 @@
                     class="px-6 py-1 rounded-lg mt-1 border focus:outline-none focus:ring-2 focus:ring-blue-700"
                     type="password">
             </div>
-           
+
             <button type="submit"
                 class="bg-blue-700 font-bold text-white px-4 py-2 rounded-lg hover:bg-blue-600 mx-auto block">Login</button>
         </form>
