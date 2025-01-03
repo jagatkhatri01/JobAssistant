@@ -1,0 +1,44 @@
+{% extends 'core/layout.html' %}
+
+{% block title %}
+    Create Resume
+{% endblock %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Step 1: Enter Your Basic Information</h1>
+
+    <form action="" method="post" class="space-y-3">
+        {% csrf_token %}
+        <div>
+            <label for="fullName">FullName</label>
+            {{ resume_form.fullName|add_class:"border-gray-300 rounded-lg block w-full" }}
+        </div>
+        <div>
+            <label for="Email">Email</label>
+            {{ resume_form.Email|add_class:"border-gray-300 rounded-lg block w-full" }}
+        </div>
+        <div>
+            <label for="contactNo">contactNo</label>
+            {{ resume_form.contactNo|add_class:"border-gray-300 rounded-lg block w-full" }}
+        </div>
+     
+        <div>
+            <label for="address">Address</label>
+            {{ resume_form.address|add_class:"border-gray-300 rounded-lg block w-full" }}
+        </div>
+     
+
+       
+        <div>
+            <label for="summary">Summary</label>
+            {{ resume_form.summary|add_class:"border-gray-300 rounded-lg block w-full" }}
+        </div>
+        <button type="submit" class="bg-blue-700 font-bold text-white px-4 py-2 rounded-lg hover:bg-blue-600 mx-auto block">Proceed to Templates</button>
+
+
+    </form>
+</div>
+{% endblock %}
