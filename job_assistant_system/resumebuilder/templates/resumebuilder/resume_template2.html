@@ -1,0 +1,96 @@
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<body class="bg-gray-100">
+    <main class="max-w-4xl mx-auto bg-white shadow-lg p-10 my-10 rounded-lg">
+        <!-- Header Section -->
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold uppercase">{{full_name}}</h1>
+            <p class="text-gray-600">Address | Phone</p>
+            <p class="text-blue-600 font-semibold">{{email}} | LinkedIn Profile | Twitter/Blog/Portfolio</p>
+        </div>
+
+        <hr class="my-6 border-gray-300">
+
+        <!-- Objective Section -->
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-2">Objective</h2>
+            <p class="text-gray-700">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis illo vitae eos animi eum
+                consectetur a numquam deleniti. Neque error facere saepe totam vero libero animi perferendis
+                dolore fugit sed?
+            </p>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Experience</h2>
+            <div class="mb-4">
+                <h3 class="text-lg font-bold">Dates From - To</h3>
+                <p class="text-gray-800"><span class="text-green-700 font-semibold">Job Title</span>, Company</p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere praesentium deleniti, obcaecati quas
+                    non iure corrupti consectetur fugit repellendus nesciunt rerum nulla esse eligendi natus
+                    accusamus nemo ullam illo mollitia.
+                </p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-bold">Dates From - To</h3>
+                <p class="text-gray-800"><span class="text-green-700 font-semibold">Job Title</span>, Company</p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere praesentium deleniti, obcaecati quas
+                    non iure corrupti consectetur fugit repellendus nesciunt rerum nulla esse eligendi natus
+                    accusamus nemo ullam illo mollitia.
+                </p>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Education</h2>
+            <div class="mb-4">
+                <h3 class="text-lg font-bold">Month Year</h3>
+                <p class="text-gray-800"><span class="text-green-700 font-semibold">Degree Title</span>, School</p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere praesentium deleniti, obcaecati quas
+                    non iure corrupti consectetur fugit repellendus nesciunt rerum nulla esse eligendi natus
+                    accusamus nemo ullam illo mollitia.
+                </p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-bold">Month Year</h3>
+                <p class="text-gray-800"><span class="text-green-700 font-semibold">Degree Title</span>, School</p>
+                <p class="text-gray-600">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere praesentium deleniti, obcaecati quas
+                    non iure corrupti consectetur fugit repellendus nesciunt rerum nulla esse eligendi natus
+                    accusamus nemo ullam illo mollitia.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="mb-6">
+            <h2 class="text-xl font-semibold mb-4">Skills</h2>
+            {% for skill in skills %}
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>{{skill}}</li>
+            </ul>
+            {% endfor %}
+        </section>
+
+        <!-- Activities Section -->
+        <section>
+            <h2 class="text-xl font-semibold mb-4">Activities</h2>
+            <p class="text-gray-700">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim illum excepturi numquam earum deleniti
+                eveniet. Temporibus explicabo nam aliquid vero ducimus quaerat nesciunt. Libero iste illo, et impedit
+                nesciunt animi.
+            </p>
+        </section>
+    </main>
+</body>
+{% endblock %}
