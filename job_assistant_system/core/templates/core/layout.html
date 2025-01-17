@@ -32,6 +32,8 @@
                     class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">SignUp</a>
                 <a href="{% url 'login' %}"
                     class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</a>
+                <a href="{% url 'logout' %}"
+                    class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Logout</a>
             </div>
         </div>
         </div>
@@ -65,6 +67,43 @@
             <img src="{% static '/images/img2.jpeg'%}" class="w-full h-[25rem] md:h-[30rem] object-cover" alt="">
         </div>
     </div>
+
+    
+    <div class="bg-gradient-to-br from-blue-50 to-blue-100 py-12">
+    <!-- Services Section -->
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-12">
+        <!-- Service 1 -->
+        <div
+            class="bg-white border border-gray-200 shadow-lg rounded-lg p-6 space-y-4 hover:shadow-xl transform hover:scale-105 transition">
+            <img src="{% static '/images/res.jpg' %}" alt="CV Creation" class="w-full rounded-md">
+            <div>
+                <h2 class="text-2xl font-bold">Professional CV</h2>
+                <p class="text-gray-600">Create your CV effortlessly with our modern templates.</p>
+            </div>
+        </div>
+    
+        <!-- Service 2 -->
+        <div
+            class="bg-white border border-gray-200 shadow-lg rounded-lg p-6 space-y-4 hover:shadow-xl transform hover:scale-105 transition">
+            <img src="{% static '/images/skill.jpg' %}" alt="Skill Building" class="w-full h-48 object-cover rounded-md">
+            <h2 class="text-2xl font-bold">Skill Development</h2>
+            <p class="text-gray-600">Access resources to enhance your professional skills.</p>
+        </div>
+    
+        <!-- Service 3 -->
+        <div
+            class="bg-white border border-gray-200 shadow-lg rounded-lg p-6 space-y-4 hover:shadow-xl transform hover:scale-105 transition">
+            <img src="{% static '/images/audit.jpg' %}" alt="Resume Auditing" class="w-full h-48 object-cover rounded-md">
+            <h2 class="text-2xl font-bold">Resume Auditing</h2>
+            <p class="text-gray-600">Optimize your resume with AI-driven insights and feedback.</p>
+        </div>
+    </div>
+    <div class="text-center my-8">
+        <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-fit">
+            View All Services
+        </button>
+    </div>
+</div>
     {% endblock %}
 </body>
 
