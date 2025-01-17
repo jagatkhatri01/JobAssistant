@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'resumebuilder',
     'widget_tweaks',
-    'resumeauditing',
+
 ]
 
 AUTH_USER_MODEL = 'core.CustomUser'
