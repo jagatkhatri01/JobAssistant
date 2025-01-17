@@ -22,9 +22,7 @@ def upload_and_audit_resume(request):
                 extracted_text = "Could not extract text from the uploaded file."
 
             # Interact with ChatGPT API
-            client = OpenAI(
-                api_key="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"
-)
+
             prompt = f"Here is a resume text:\n\n{extracted_text}\n\nProvide suggestions for improvement:"
             
             try:
