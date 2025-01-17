@@ -1,0 +1,13 @@
+{% extends 'core/layout.html' %}
+
+{% block content %}
+<div class="conatiner flex justify-center">
+    <h1 class="font-bold text-3xl">Upload Your Resume</h1>
+    <form action="" method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Upload</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -8,8 +8,8 @@
     <div class="px-10 py-8 shadow-lg rounded-lg bg-slate-200 w-[25rem] md:w-[35rem]">
         <h1 class="font-bold text-2xl mb-10 text-center">Login to your account</h1>
 
-        <form action="" class="space-y-6">
-
+        <form action="" class="space-y-6" method="post">
+            {% csrf_token %}
             <div class="flex flex-col">
                 <label for="email" class="text-md font-semibold">Email</label>
                 <input id="email"

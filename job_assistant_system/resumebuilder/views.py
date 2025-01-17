@@ -45,20 +45,3 @@ def template_selector(request):
         'templates':templates
     }
     return render(request, 'template_selector.html', context)
-
-
-def edit_resume(request, resume_id):
-    resume = get_object_or_404(Resume, id=resume_id)
-    if request.method == 'POST':
-        resume_form = ResumeForm(request.POST, instance=resume)
-        if resume_form.is_valid():
-            resume = resume_form.save()
-            return redirect('template_selector')
-            
-        else:
-            print("form errors", resume_form.errors)
-
-    else:
-        resume_form = ResumeForm(instance=resume)
-
-    return render(request, 'resumebuilder/resume_form.html', {'resume_form':resume_form})

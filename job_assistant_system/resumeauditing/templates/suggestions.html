@@ -1,0 +1,50 @@
+{% extends 'core/layout.html' %}
+
+{% block content %}
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Header Section -->
+    <header class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto text-center">
+            <h1 class="text-3xl font-bold">Resume Suggestions</h1>
+        </div>
+    </header>
+
+    <!-- Content Section -->
+    <main class="container mx-auto mt-8 px-4">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Uploaded Resume:</h2>
+            <div class="bg-gray-50 p-4 rounded-lg border">
+                <p class="text-gray-600 italic">
+                    <!-- Display resume details if applicable -->
+                    {{ resume.file.name }}
+                </p>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4">Suggestions:</h2>
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                {% if suggestions %}
+                <ul class="list-disc pl-6 text-gray-700">
+                    {% for suggestion in suggestions.splitlines %}
+                    <li class="mb-2">{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-gray-600">No suggestions were provided. Please try again.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white mt-8 p-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; {{ year }} Resume Audit System. All rights reserved.</p>
+            <a href="{% url 'upload_and_audit_resume' %}" class="text-blue-300 hover:text-blue-500 underline">
+                Upload Another Resume
+            </a>
+        </div>
+    </footer>
+
+</body>
+{% endblock %}
