@@ -21,8 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path('', include('core.urls')),
-    path('', include('resumebuilder.urls')),
-    path('', include('resumeauditing.urls')),
+    path('', include('resumebuilder.urls', namespace='resumebuilder')),
+    path('', include('resumeauditing.urls', namespace='resumeauditing')),
+
 
 
 ]

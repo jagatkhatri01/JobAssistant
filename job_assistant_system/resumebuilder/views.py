@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import ResumeForm
 from .models import Resume
+from django.template.loader import render_to_string
+
 
 
 
@@ -18,7 +20,7 @@ def resume_form(request):
             resume = resume_form.save()
             request.session['resume_id'] = resume.id
 
-            return redirect('template_selector')
+            return redirect('resumebuilder:template_selector')
             
         else:
             print("form errors", resume_form.errors)
@@ -32,7 +34,7 @@ def resume_form(request):
 def template_selector(request):
     resume_id = request.session.get('resume_id')
     if not resume_id:
-        return redirect('create_resume')
+        return redirect('resumebuilder:create_resume')
 
 
     resume = get_object_or_404(Resume, id=resume_id)

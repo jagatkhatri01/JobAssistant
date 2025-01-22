@@ -4,20 +4,23 @@ Choose a Resume Template
 {% endblock %}
 
 {% block content %}
-<div class="bg-gray-100 p-6 rounded-lg shadow-lg">
-    <h1 class="text-3xl font-bold text-center mb-8">Select a Resume Template</h1>
+<div class="bg-gray-50 py-10">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Select a Resume Template</h1>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {% for template in templates %}
-        <div class="border p-4 shadow rounded-lg">
-            {% include template %}
-            <div class="mt-4 flex justify-between">
-                <a href=""
-                    class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Edit</a>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
+            {% for template in templates %}
+            <div id="template-wrapper-{{ forloop.counter }}" class="border p-4 shadow rounded-lg">
+                {% include template %}
+                <div class="mt-4 flex justify-between">
+                    <button onclick="enableEditing('{{ forloop.counter }}')"
+                        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Edit</button>
+                    <button onclick="downloadPDF('{{ forloop.counter }}')"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}
