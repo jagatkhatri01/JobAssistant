@@ -7,7 +7,7 @@
     
     <body class="bg-gray-100">
         <main  id="template1" data-template-id="1" class="max-w-4xl mx-auto bg-white shadow-lg p-10 my-10 rounded-lg">
-            <!-- Header Section -->
+
             <div class="text-center mb-6">
                 <h1 class="text-3xl font-bold uppercase" contenteditable="true">{{resume.fullName}}</h1>
                 <p class="text-gray-600" contenteditable="true">Address | Phone</p>
@@ -15,8 +15,7 @@
             </div>
     
             <hr class="my-6 border-gray-300">
-    
-            <!-- Objective Section -->
+ 
             <section class="mb-6">
                 <h2 class="text-xl font-semibold mb-2">Objective</h2>
                 <p class="text-gray-700" contenteditable="false">
@@ -26,10 +25,10 @@
                 </p>
             </section>
     
-            <!-- Experience Section -->
+
             <section class="mb-6">
                 <h2 class="text-xl font-semibold mb-4" contenteditable="true">Experience</h2>
-                <div class="mb-4" contenteditable="false">
+                <div class="mb-4" contenteditable="true">
                     <h3 class="text-lg font-bold">Dates From - To</h3>
                     <p class="text-gray-800"><span class="text-green-700 font-semibold">Job Title</span>, Company</p>
                     <p class="text-gray-600">
@@ -38,7 +37,7 @@
                         accusamus nemo ullam illo mollitia.
                     </p>
                 </div>
-                <div class="mb-4" contenteditable="falsef">
+                <div class="mb-4" contenteditable="true">
                     <h3 class="text-lg font-bold">Dates From - To</h3>
                     <p class="text-gray-800"><span class="text-green-700 font-semibold">Job Title</span>, Company</p>
                     <p class="text-gray-600">
@@ -49,10 +48,10 @@
                 </div>
             </section>
     
-            <!-- Education Section -->
+         
             <section class="mb-6">
                 <h2 class="text-xl font-semibold mb-4">Education</h2>
-                <div class="mb-4" contenteditable="false">
+                <div class="mb-4" contenteditable="true">
                     <h3 class="text-lg font-bold">Month Year</h3>
                     <p class="text-gray-800"><span class="text-green-700 font-semibold">Degree Title</span>, School</p>
                     <p class="text-gray-600">
@@ -61,7 +60,7 @@
                         accusamus nemo ullam illo mollitia.
                     </p>
                 </div>
-                <div class="mb-4" contenteditable="false">
+                <div class="mb-4" contenteditable="true">
                     <h3 class="text-lg font-bold">Month Year</h3>
                     <p class="text-gray-800"><span class="text-green-700 font-semibold">Degree Title</span>, School</p>
                     <p class="text-gray-600">
@@ -72,7 +71,7 @@
                 </div>
             </section>
     
-            <!-- Skills Section -->
+
             <section class="mb-6">
                 <h2 class="text-xl font-semibold mb-4">Skills</h2>
                 {% for skill in skills %}
@@ -82,10 +81,9 @@
                 {% endfor %}
             </section>
     
-            <!-- Activities Section -->
             <section>
                 <h2 class="text-xl font-semibold mb-4">Activities</h2>
-                <p class="text-gray-700" contenteditable="false">
+                <p class="text-gray-700" contenteditable="true">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim illum excepturi numquam earum deleniti
                     eveniet. Temporibus explicabo nam aliquid vero ducimus quaerat nesciunt. Libero iste illo, et impedit
                     nesciunt animi.
@@ -107,7 +105,7 @@
                         field.classList.add("editable-highlight");
                     });
 
-                    // Optional: Change the button to "Save"
+             
                     const editButton = document.querySelector(`#template-wrapper-${templateId} button`);
                     editButton.textContent = "Save";
                     editButton.onclick = () => saveTemplate(templateId);
@@ -118,7 +116,7 @@
                 const template = document.querySelector(`#template-wrapper-${templateId}`);
                 const editableFields = template.querySelectorAll("[contenteditable]");
 
-                // Gather updated content (you can send it to your backend here)
+             
                 const updatedContent = {};
                 editableFields.forEach((field) => {
                     updatedContent[field.dataset.name] = field.innerHTML;
@@ -126,12 +124,12 @@
                     field.classList.remove("editable-highlight");
                 });
 
-                // Change the button back to "Edit"
+      
                 const editButton = template.querySelector("button");
                 editButton.textContent = "Edit";
                 editButton.onclick = () => enableEditing(templateId);
 
-                console.log("Updated Content:", updatedContent); // Debugging or send to backend
+                console.log("Updated Content:", updatedContent); 
             }
 
             

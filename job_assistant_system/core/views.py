@@ -45,9 +45,6 @@ def login_view(request):
 
     return render(request, 'registration/login_page.html', {'form': form})
 
-@login_required
-def welcome(request):
-    return render(request, 'registration/welcome.html')
 
 def logout_view(request):
     logout(request)

@@ -1,91 +1,119 @@
 import os
-from django.shortcuts import render, redirect
-from django.http import HttpResponseBadRequest
-from PyPDF2 import PdfReader
-from docx import Document
-from PIL import Image
+import io
+import PyPDF2
+import docx
 import pytesseract
-from openai import OpenAI
-from .forms import ResumeUploadForm
+from PIL import Image
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.conf import settings
-import markdown
+from .forms import ResumeUploadForm
+import google.generativeai as genai
+from dotenv import load_dotenv
+from datetime import datetime
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  
+load_dotenv()
 
-temp_dir = os.path.join(settings.BASE_DIR, 'temp')
-os.makedirs(temp_dir, exist_ok=True)
+# Configure AI
+genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+model = genai.GenerativeModel('gemini-1.5-flash')
 
-client = OpenAI(api_key=os.getenv('API_KEY')) 
-
-def extract_text_from_file(file_path):
-    ext = os.path.splitext(file_path)[1].lower()
+def extract_text_from_file(file):
+    """Extract text from PDF, DOCX, or Image files"""
+    text = ""
+    file_extension = os.path.splitext(file.name)[1].lower()
+    
     try:
-        if ext in ['.jpg', '.jpeg', '.png']:
-            return pytesseract.image_to_string(Image.open(file_path))
-        elif ext == '.pdf':
-            reader = PdfReader(file_path)
-            return " ".join(page.extract_text() for page in reader.pages)
-        elif ext in ['.doc', '.docx']:
-            doc = Document(file_path)
-            return " ".join(paragraph.text for paragraph in doc.paragraphs)
+        if file_extension == '.pdf':
+            reader = PyPDF2.PdfReader(file)
+            text = "\n".join([page.extract_text() for page in reader.pages])
+        elif file_extension == '.docx':
+            doc = docx.Document(file)
+            text = "\n".join([para.text for para in doc.paragraphs])
+        elif file_extension in ['.jpg', '.jpeg', '.png']:
+            image = Image.open(io.BytesIO(file.read()))
+            text = pytesseract.image_to_string(image)
         else:
-            raise ValueError("Unsupported file format")
+            return None
     except Exception as e:
-        return f"Error extracting text: {str(e)}"
+        print(f"Error extracting text: {e}")
+        return None
+    
+    return text
+
+def get_ai_suggestions(resume_text):
+    """Get structured resume suggestions from Gemini"""
+    prompt = f"""
+    Analyze this resume and provide specific improvement suggestions in this exact format:
+    
+    **Section Name**
+    * Suggestion 1 for this section
+    * Suggestion 2 for this section
+    
+    Example:
+    **Education**
+    * Move graduation date to right margin
+    * List GPA if above 3.0
+    
+    Resume Content:
+    {resume_text}
+    """
+    
+    try:
+        response = model.generate_content(prompt)
+        return parse_suggestions(response.text)
+    except Exception as e:
+        return [{
+            "section_title": "Error",
+            "items": [f"Could not generate suggestions: {str(e)}"]
+        }]
+
+def parse_suggestions(ai_response):
+    """Convert AI response into structured data with better formatting"""
+    sections = []
+    current_section = None
+    
+    for line in ai_response.split('\n'):
+        line = line.strip()
+        if not line:
+            continue
+            
+        # Detect section headers (handles both **Section** and Section: formats)
+        if (line.startswith('**') and line.endswith('**')) or line.endswith(':'):
+            section_title = line.strip('*:').strip()
+            current_section = {
+                "section_title": section_title,
+                "items": []
+            }
+            sections.append(current_section)
+            
+        # Detect bullet points and numbered items
+        elif (line.startswith('* ') or (line.startswith('.') and line[1].isdigit())):
+            suggestion = line[2:].strip() if line.startswith('* ') else line[1:].strip()
+            if current_section:
+                current_section["items"].append(suggestion)
+    
+    return sections
 
 def upload_and_audit_resume(request):
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            return HttpResponseBadRequest("You must be logged in to upload a resume.")
-
         form = ResumeUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            resume = form.save(commit=False)
-            resume.user = request.user
-            resume.save()
-
-            uploaded_file = request.FILES['file']
-            file_path = os.path.join(temp_dir, uploaded_file.name)
-
-            with open(file_path, 'wb') as f:
-                for chunk in uploaded_file.chunks():
-                    f.write(chunk)
-            extracted_text = extract_text_from_file(file_path)
-            prompt = f"""
-            I have extracted the following text from a resume:
-            {extracted_text}
-
-            Provide suggestions for improving the resume. Focus on structure, grammar, and formatting.
-            """
-            try:
-                response = client.chat.completions.create(
-                    model='gpt-4o-mini', 
-                    store = True,
-                    messages=[
-                            {"role": "user", "content": prompt}]
-                   
-                )
-                print(response)
-                suggestions_text = response.choices[0].message.content
-                cleaned_suggestions = []
-                for section in suggestions_text.split("\n\n"):  
-                    lines = section.split("\n")
-                    if lines:
-                        section_title = lines[0].replace("##", "").strip() 
-                        items = [line.replace("**", "").strip() for line in lines[1:] if line.strip()] 
-                        cleaned_suggestions.append({"section_title": section_title, "items": items})
-
-            except Exception as e:
-                cleaned_suggestions = [{"section_title": "Error", "items": [f"An error occurred: {str(e)}"]}]
-            resume.suggestions = cleaned_suggestions
-            resume.save()
-
-            return render(request, 'suggestions.html', {
-                'resume': resume,
-                'suggestions': cleaned_suggestions,
+            resume_file = request.FILES['file']
+            resume_text = extract_text_from_file(resume_file)
+            
+            if not resume_text:
+                return JsonResponse({'error': 'Unsupported file format'}, status=400)
+            
+            suggestions = get_ai_suggestions(resume_text)
+            request.session['resume_text'] = resume_text
+            request.session['suggestions'] = suggestions
+            
+            return render(request, 'resumeauditing/suggestions.html', {
+                'suggestions': suggestions,
+                'resume_preview': resume_text[:500] + "..." if len(resume_text) > 500 else resume_text,
+                'year': datetime.now().year
             })
-
-    else:
-        form = ResumeUploadForm()
-
-    return render(request, 'upload_resume.html', {'form': form})
+    
+    form = ResumeUploadForm()
+    return render(request, 'resumeauditing/upload-resume.html', {'form': form})

@@ -1,26 +1,28 @@
 {% extends 'core/layout.html' %}
+
 {% block title %}
-Choose a Resume Template
+Select Your Resume Template
 {% endblock %}
 
 {% block content %}
-<div class="bg-gray-50 py-10">
-    <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Select a Resume Template</h1>
+<div class="mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Step 2: Select Your Resume Template</h1>
 
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
-            {% for template in templates %}
-            <div id="template-wrapper-{{ forloop.counter }}" class="border p-4 shadow rounded-lg">
-                {% include template %}
-                <div class="mt-4 flex justify-between">
-                    <button onclick="enableEditing('{{ forloop.counter }}')"
-                        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Edit</button>
-                    <button onclick="downloadPDF('{{ forloop.counter }}')"
-                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Download</button>
-                </div>
-            </div>
-            {% endfor %}
+    <p class="text-center mb-4">Choose a template for your resume preview.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
+        {% for template in templates %}
+        <div class="border p-4 rounded-lg text-center">
+            <h2 class="text-xl font-bold mb-2">{{ template.name }}</h2>
+                    <div class="preview">
+                        {% include template.path with resume=resume %}
+                    </div>
+                    
+                    <!-- Option to select template -->
+                    <a href="{% url 'resumebuilder:preview_template' template_name=template.name %}"
+                        class="bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-600 mt-4">Preview</a>
         </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

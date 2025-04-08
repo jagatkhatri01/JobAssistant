@@ -1,49 +1,139 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 from django.shortcuts import render, redirect
 from .forms import ResumeForm
 from .models import Resume
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
 
 
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import ResumeForm
 
+@login_required
 def resume_form(request):
     if request.method == 'POST':
         resume_form = ResumeForm(request.POST)
-        # print("Form data (raw):", resume_form.data)
         if resume_form.is_valid():
-            
-            resume = resume_form.save()
+            resume = resume_form.save(commit=False)
+            resume.user = request.user  # Link to logged-in user
+            resume.save()
             request.session['resume_id'] = resume.id
-
+            messages.success(request, "Information saved successfully!")
             return redirect('resumebuilder:template_selector')
-            
         else:
-            print("form errors", resume_form.errors)
-
+            messages.error(request, "Please correct the errors below.")
     else:
         resume_form = ResumeForm()
 
-    return render(request, 'resumebuilder/resume_form.html', {'resume_form':resume_form})
+    return render(request, 'resumebuilder/resume_form2.html', {
+        'resume_form': resume_form
+    })
 
-
+@login_required
 def template_selector(request):
     resume_id = request.session.get('resume_id')
     if not resume_id:
-        return redirect('resumebuilder:create_resume')
-
+        return redirect('resumebuilder:create_resume')  # Redirect if no resume exists in session
 
     resume = get_object_or_404(Resume, id=resume_id)
+    
+    # Define the templates available
     templates = [
-        'resumebuilder/resume_template1.html',
-        'resumebuilder/resume_template2.html'
+        {'name': 'Template 1', 'path': 'resumebuilder/resume_template1.html'},
+        {'name': 'Template 2', 'path': 'resumebuilder/resume_template2.html'},
+        {'name': 'Template 3', 'path': 'resumebuilder/resume_template3.html'},
+        {'name': 'Template 4', 'path': 'resumebuilder/resume_template4.html'},
+        {'name': 'Template 5', 'path': 'resumebuilder/resume_template6.html'}
     ]
+    
     context = {
-        'resume':resume,
-        'templates':templates
+        'resume': resume,
+        'templates': templates
     }
+    
     return render(request, 'template_selector.html', context)
+
+@login_required
+def preview_template(request, template_name):
+    resume_id = request.session.get('resume_id')
+    if not resume_id:
+        return redirect('resumebuilder:create_resume')  # Redirect if no resume exists in session
+
+    resume = get_object_or_404(Resume, id=resume_id)
+
+    # Templates dictionary mapping template names to their respective paths
+    templates = {
+        'Template 1': 'resumebuilder/resume_template1.html',
+        'Template 2': 'resumebuilder/resume_template2.html',
+        'Template 3': 'resumebuilder/resume_template3.html',
+        'Template 4': 'resumebuilder/resume_template4.html',
+        'Template 5': 'resumebuilder/resume_template6.html',
+    }
+
+    # Check if the template_name is valid, otherwise redirect
+    template_path = templates.get(template_name)
+    if not template_path:
+        return redirect('resumebuilder:template_selector')
+
+    context = {
+        'resume': resume,
+        'template_path': template_path,
+        'template_name':template_name
+    }
+
+    return render(request, 'resumebuilder/preview_template.html', context)
+
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+@login_required
+def save_edited_resume(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            resume_id = request.session.get('resume_id')
+            if not resume_id:
+                return JsonResponse({'status': 'error', 'message': 'No resume found'})
+            html_content = data.get('html_content')
+            template_name = data.get('template_name')
+            
+            # Store in session or database
+            request.session['edited_resume'] = {
+                'html_content': html_content,
+                'template_name': template_name
+            }
+            
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+# @login_required
+# def download_pdf(request):
+#     resume_id = request.session.get('resume_id')
+#     if not resume_id:
+#         return redirect('resumebuilder:create_resume')
+
+#     # Check for edited version
+#     edited_resume = request.session.get('edited_resume', {})
+#     if edited_resume.get('html_content'):
+#         html_content = edited_resume['html_content']
+#     else:
+#         # Get the original template
+#         template_name = edited_resume.get('template_name', 'Template 1')
+#         template_path = f'resumebuilder/resume_template{template_name.split()[-1]}.html'
+#         resume = get_object_or_404(Resume, id=resume_id)
+#         html_content = render_to_string(template_path, {'resume': resume})
+
+#     # Generate PDF
+#     pdf_file = HTML(string=html_content).write_pdf()
+#     response = HttpResponse(pdf_file, content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
+#     return response
