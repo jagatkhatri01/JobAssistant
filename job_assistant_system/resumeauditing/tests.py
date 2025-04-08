@@ -1,13 +1,14 @@
-from django.test import TestCase
+import google.generativeai as genai
 
-# Create your tests here.
-from openai import OpenAI
+# Configure API key (replace with your actual key)
+genai.configure(api_key="AIzaSyA2kivno3Yr0uLlsnblZVcqMyrCe9FJaTE")  # 🔒 Use environment variables in production!
 
-client = OpenAI(api_key='API_KEY')
+# Initialize the model
+model = genai.GenerativeModel('gemini-1.5-flash-latest')  # or 'gemini-1.5-flash' for faster responses
 
-response = client.embeddings.create(
-  model="gpt-4o-mini",
-  input= "How to analyse images of flood events for modelling"
+# Generate content
+response = model.generate_content(
+    "Explain how AI works in a few words."
 )
 
-print(response)
+print(response.text)

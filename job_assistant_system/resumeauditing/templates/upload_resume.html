@@ -1,22 +1,21 @@
 {% extends 'core/layout.html' %}
-
 {% block content %}
 
-<body class="bg-gradient-to-r from-blue-50 to-blue-100 flex items-center justify-center min-h-screen font-sans">
-    <div class="bg-white shadow-lg rounded-lg px-10 py-8 w-full max-w-lg border border-gray-200">
-        <h1 class="text-2xl font-semibold text-gray-700 text-center mb-6">Upload Your Resume</h1>
-        <p class="text-gray-500 text-center mb-4">Make sure your file is in PDF format for a seamless experience.</p>
-        <form method="POST" enctype="multipart/form-data" class="space-y-4">
-            {% csrf_token %}
-            <div class="flex items-center space-x-4">
-                <label for="id_file" class="text-gray-600 font-medium">File:</label>
-                {{form.file}}
-            </div>
-            <button type="submit"
-                class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition ease-in-out duration-200">
-                Upload
-            </button>
-        </form>
-    </div>
-</body>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <form method="post" enctype="multipart/form-data" class="bg-white p-8 rounded shadow-md w-full max-w-md">
+        {% csrf_token %}
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Upload Your Resume</h2>
+
+        <label class="block text-gray-700 font-semibold mb-2" for="resume">
+            Choose Resume File (PDF, Word, or Image):
+        </label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" required
+            class="w-full p-2 border rounded mb-4">
+
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Analyze Resume
+        </button>
+    </form>
+</div>
+
 {% endblock %}

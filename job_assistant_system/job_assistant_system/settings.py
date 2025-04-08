@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'resumeauditing',
 
+
 ]
 
 AUTH_USER_MODEL = 'core.CustomUser'

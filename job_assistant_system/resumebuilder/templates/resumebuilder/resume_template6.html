@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50">
+    <div class="max-w-3xl mx-auto my-8 bg-white shadow-md rounded-lg overflow-hidden" data-editable="true">
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-white">
+            <h1 class="text-3xl font-bold" data-editable="true">{{resume.fullName}}</h1>
+            <p class="text-blue-100" data-editable="true">Senior Software Engineer</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-6 grid md:grid-cols-3 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Contact -->
+                <div data-editable="true">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Contact</h2>
+                    <ul class="mt-2 space-y-1 text-gray-700">
+                        <li class="flex items-center" data-editable="true">
+                            <span class="mr-2">📧</span> {{resume.Email}}
+                        </li>
+                        <li class="flex items-center" data-editable="true">
+                            <span class="mr-2">📱</span> {{resume.contactNo}}
+                        </li>
+                        <li class="flex items-center" data-editable="true">
+                            <span class="mr-2">🌐</span> linkedin.com/in/yourprofile
+                        </li>
+                        <li class="flex items-center" data-editable="true">
+                            <span class="mr-2">📍</span> {{resume.address}}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Skills -->
+                <div data-editable="true">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Skills</h2>
+                    <ul class="mt-2 space-y-1">
+                        <li data-editable="true">JavaScript/TypeScript</li>
+                        <li data-editable="true">React & Next.js</li>
+                        <li data-editable="true">Node.js</li>
+                        <li data-editable="true">Tailwind CSS</li>
+                        <li data-editable="true">AWS</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Summary -->
+                <div data-editable="true">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Summary</h2>
+                    <p class="mt-2 text-gray-700">
+                        {{resume.summary|default:"Passionate software engineer with experience building scalable web
+                        applications."}}
+                    </p>
+                </div>
+
+                <!-- Experience -->
+                <div data-editable="true">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Experience</h2>
+                    <div class="mt-4 space-y-4">
+                        <div data-editable="true">
+                            <h3 class="font-bold">Senior Frontend Developer</h3>
+                            <p class="text-gray-600">Tech Corp Inc. • 2020 - Present</p>
+                            <ul class="mt-1 list-disc list-inside text-gray-700">
+                                <li data-editable="true">Led migration from Angular to React, improving performance by
+                                    40%</li>
+                                <li data-editable="true">Implemented CI/CD pipelines reducing deployment time by 65%
+                                </li>
+                            </ul>
+                        </div>
+                        <div data-editable="true">
+                            <h3 class="font-bold">Software Engineer</h3>
+                            <p class="text-gray-600">Web Solutions LLC • 2018 - 2020</p>
+                            <ul class="mt-1 list-disc list-inside text-gray-700">
+                                <li data-editable="true">Developed REST APIs with Node.js handling 10K+ daily requests
+                                </li>
+                                <li data-editable="true">Optimized database queries reducing latency by 30%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div data-editable="true">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Education</h2>
+                    <div class="mt-2">
+                        <h3 class="font-bold">B.S. Computer Science</h3>
+                        <p class="text-gray-600">Stanford University • 2014 - 2018</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

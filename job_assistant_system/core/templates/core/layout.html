@@ -24,7 +24,7 @@
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
         body {
-            padding-top: 80px; /* Adjust based on the navbar height */
+            padding-top: 80px; 
         }
       
     </style>
@@ -41,7 +41,7 @@
                     <li><a href="#home" class="nav-link hover:underline hover:text-blue-400">Home</a></li>
                     <li><a href="#services" class="nav-link hover:underline hover:text-blue-400">services</a></li>
                     <li><a href="#about" class="nav-link hover:underline hover:text-blue-400">About</a></li>
-                    <li><a href="#" class="hover:underline hover:text-blue-400">Contact</a></li>
+                    <li><a href="#contact" class="hover:underline hover:text-blue-400">Contact</a></li>
                 </ul>
             </div>
     
@@ -54,6 +54,7 @@
                     <a href="{% url 'signup' %}" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">SignUp</a>
                     <a href="{% url 'login' %}" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</a>
                     {% endif %}
+                    <a href=""></a>
                 </div>
             </div>
             </div>
@@ -62,7 +63,7 @@
     </header>
     {% block content %}
 
-    <div class="content relative">
+    <div id="home" class="content relative">
         <img src="{% static '/images/img1.jpeg'%}" alt="" class="w-full h-[25rem] md:h-[38rem] object-cover">
         <div
             class="absolute inset-0 w-full bg-black bg-opacity-50 flex flex-col justify-center space-y-4 px-20 md:px-[11rem] ">
@@ -83,7 +84,7 @@
                 using stylish templates, skill-building resources from top platforms like Coursera and Udemy, AI-driven
                 resume auditing,
                 and LinkedIn profile optimization, we empower you to elevate your job search and career prospects.</p>
-                <a href="" class="text-green-600 font-medium hover:underline">Get in touch</a>
+                <a href="#contact" class="text-green-600 font-medium hover:underline">Get in touch</a>
         </div>
         <div class="right md:w-1/2 flex justify-center">
             <img src="{% static '/images/img2.jpeg'%}" class="w-full md:w-full h-[25rem] md:h-[30rem] object-cover" alt="">

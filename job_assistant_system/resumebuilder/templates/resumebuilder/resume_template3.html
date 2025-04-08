@@ -1,0 +1,121 @@
+Anish Pokhrel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Template</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @media print {
+            .no-print {
+                display: none;
+            }
+
+            body {
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 font-sans leading-relaxed">
+
+    <div class="max-w-5xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg">
+
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold">Alex Johnson</h1>
+            <p class="text-lg text-gray-600">Full Stack Developer</p>
+            <p class="text-sm text-gray-500">
+                alex.johnson@email.com | (123) 456-7890 | alexjohnson.dev | LinkedIn
+            </p>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Left Column -->
+            <div class="md:col-span-1 space-y-6">
+                <!-- Profile -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Profile</h2>
+                    <p class="text-sm text-gray-700">
+                        Passionate developer with 5+ years of experience building web apps and tools using JavaScript,
+                        React, and Node.js. Always eager to learn and collaborate.
+                    </p>
+                </section>
+
+                <!-- Skills -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Skills</h2>
+                    <ul class="text-sm list-disc list-inside text-gray-700">
+                        <li>JavaScript / TypeScript</li>
+                        <li>React, Next.js</li>
+                        <li>Node.js, Express</li>
+                        <li>SQL & NoSQL Databases</li>
+                        <li>Docker, Git, CI/CD</li>
+                    </ul>
+                </section>
+
+                <!-- Languages -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Languages</h2>
+                    <p class="text-sm">English (Fluent), French (Conversational)</p>
+                </section>
+
+                <!-- Certifications -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Certifications</h2>
+                    <ul class="text-sm list-disc list-inside text-gray-700">
+                        <li>AWS Certified Developer</li>
+                        <li>Scrum Master Certification</li>
+                    </ul>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Experience -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Experience</h2>
+
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm font-medium">
+                            <span>Lead Developer, TechNova Inc.</span>
+                            <span class="text-gray-500">2021 – Present</span>
+                        </div>
+                        <p class="text-sm text-gray-600 italic">San Francisco, CA</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1">
+                            <li>Designed and led the development of a SaaS dashboard used by 500+ clients.</li>
+                            <li>Mentored junior developers and conducted code reviews.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-sm font-medium">
+                            <span>Frontend Engineer, WebWorks</span>
+                            <span class="text-gray-500">2018 – 2021</span>
+                        </div>
+                        <p class="text-sm text-gray-600 italic">Remote</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1">
+                            <li>Built reusable components and maintained UI library for internal use.</li>
+                            <li>Collaborated with designers and product managers on 10+ major releases.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Education -->
+                <section>
+                    <h2 class="text-lg font-semibold border-b pb-1 mb-2">Education</h2>
+                    <div>
+                        <p class="text-sm font-medium">B.Sc. in Computer Science</p>
+                        <p class="text-sm text-gray-600">University of Example | 2014 – 2018</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
