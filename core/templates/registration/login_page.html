@@ -1,0 +1,46 @@
+{% extends 'core/layout.html' %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col justify-center items-center mt-8 w-screen h-full">
+    <div class="px-10 py-8 shadow-lg rounded-lg bg-slate-200 w-[25rem] md:w-[35rem]">
+        <h1 class="font-bold text-2xl mb-10 text-center">Login to your account</h1>
+
+        <form action="" class="space-y-6" method="post">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="email" class="text-md font-semibold">Email</label>
+                {{form.username}}
+                {% if form.username.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.username.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col">
+                <label for="password" class="text-md font-semibold">password</label>
+                {{form.password}}
+                {% if form.password.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.password.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+
+            <button type="submit"
+                class="bg-blue-700 font-bold text-white px-4 py-2 rounded-lg hover:bg-blue-600 mx-auto block">Login</button>
+        </form>
+        <div class="text-center mt-4">
+            <p class="text-gray-700">Don't have an account
+                <a href="{% url 'signup' %}" class="text-blue-700 font-bold hover:underline">SignUp</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'core/layout.html' %}
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-col justify-center items-center mt-8 w-screen h-full">
+    <div class="px-10 py-8 shadow-lg rounded-lg bg-slate-200 w-[25rem] md:w-[35rem]">
+        <h1 class="font-bold text-2xl mb-10 text-center">Create an Account</h1>
+
+        <form action="" method="post" class="space-y-6">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="username" class="text-md font-semibold">Username</label>
+                {{form.username}}
+                {% if form.username.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.username.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col">
+                <label for="email" class="text-md font-semibold">Email</label>
+                {{form.email}}
+                {% if form.email.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.email.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col">
+                <label for="password" class="text-md font-semibold">password</label>
+                {{form.password1}}
+                {% if form.password1.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.password1.errors %}
+                        <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col">
+                <label for="confirm_password" class="text-md font-semibold">Confirm Password</label>
+                {{form.password2}}
+                {% if form.password2.errors %}
+                <div class="text-red-500 text-sm my-2">
+                    {% for error in form.password2.errors %}
+                    <p>{{error}}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <button type="submit"
+                class="bg-blue-700 font-bold text-white px-4 py-2 rounded-lg hover:bg-blue-600 mx-auto block">SignUp</button>
+        </form>
+        <div class="text-center mt-4">
+            <p class="text-gray-700">Already have an account?
+                <a href="{% url 'login' %}" class="text-blue-700 font-bold hover:underline">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'core/layout.html' %}
+
+{% block title %}
+Preview Your Resume
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Preview Your Resume</h1>
+
+    <!-- Display the selected template -->
+    <div class="preview mb-4" id="resume-preview">
+        {% include template_path with resume=resume %}
+    </div>
+
+    <!-- Options to edit or download -->
+    <div class="text-center mt-6">
+        <button id="edit-toggle"
+            class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-400 mr-4">Edit</button>
+        <a href=""
+            class="bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Download PDF</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editToggle = document.getElementById('edit-toggle');
+        const resumePreview = document.getElementById('resume-preview');
+        let isEditing = false;
+
+        editToggle.addEventListener('click', function () {
+            if (!isEditing) {
+                // Enable editing
+                const editableElements = resumePreview.querySelectorAll('[data-editable]');
+                editableElements.forEach(el => {
+                    el.setAttribute('contenteditable', 'true');
+                    el.classList.add('border', 'border-blue-200', 'p-1', 'rounded');
+                });
+                editToggle.textContent = 'Save';
+                editToggle.classList.remove('bg-yellow-500');
+                editToggle.classList.add('bg-green-500');
+                isEditing = true;
+            } else {
+                // Save changes
+                const editableElements = resumePreview.querySelectorAll('[data-editable]');
+                editableElements.forEach(el => {
+                    el.setAttribute('contenteditable', 'false');
+                    el.classList.remove('border', 'border-blue-200', 'p-1', 'rounded');
+                });
+                editToggle.textContent = 'Edit';
+                editToggle.classList.remove('bg-green-500');
+                editToggle.classList.add('bg-yellow-500');
+                isEditing = false;
+
+                // Get the updated HTML
+                const updatedHtml = resumePreview.innerHTML;
+
+                // Send to server (you'll need to implement this endpoint)
+                fetch('{% url "resumebuilder:save_edited_resume" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                    body: JSON.stringify({
+                        html_content: updatedHtml,
+                        template_name: '{{ template_name }}'
+                    })
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}
