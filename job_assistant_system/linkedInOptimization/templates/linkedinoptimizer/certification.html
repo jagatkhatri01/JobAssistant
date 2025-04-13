@@ -1,0 +1,57 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border space-y-6">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Certifications</h2>
+
+    {% if certifications %}
+    {% for cert in certifications %}
+    <div class="flex items-center justify-between p-4 border rounded-md bg-gray-50">
+        <div>
+            <p class="font-semibold text-gray-900">{{ cert.title }}</p>
+            <p class="text-sm text-gray-600">{{ cert.issuer }}</p>
+            <p class="text-xs text-gray-500">{{ cert.date_issued }}</p>
+        </div>
+        <div class="flex gap-5">
+            <!-- Simple Edit Button -->
+            <a href="{% url 'linkedinoptimizer:edit_certification' cert.id %}"
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                Edit
+            </a>
+        
+            <!-- Simple Delete Button -->
+            <form action="{% url 'linkedinoptimizer:delete_certification' cert.id %}" method="POST" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                    onclick="return confirm('Delete this certification?')">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="text-gray-500">No certifications added yet.</p>
+    {% endif %}
+
+    <details class="w-full mt-6">
+        <summary class="cursor-pointer text-blue-600 hover:underline font-semibold">+ Add Certification</summary>
+        <form method="POST" class="mt-4 space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-900">Save</button>
+        </form>
+    </details>
+
+    {% if certifications %}
+    <div class="flex justify-end mt-6">
+        <a href="{% url 'linkedinoptimizer:linkedin_suggestion' %}"
+            class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-green-900">
+            Next
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

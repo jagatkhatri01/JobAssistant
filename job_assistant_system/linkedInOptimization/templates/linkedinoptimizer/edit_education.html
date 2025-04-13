@@ -1,0 +1,32 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border space-y-6">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Edit Education</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Degree</label>
+            {{ form.degree }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+            {{ form.institution }}
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Start Year</label>
+                {{ form.start_year }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">End Year</label>
+                {{ form.end_year }}
+            </div>
+        </div>
+        <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-900">Save</button>
+    </form>
+</div>
+{% endblock %}

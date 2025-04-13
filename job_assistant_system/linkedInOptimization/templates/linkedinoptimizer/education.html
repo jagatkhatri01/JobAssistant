@@ -1,0 +1,71 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border space-y-6">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Education</h2>
+
+{% for edu in educations %}
+<div class="flex items-center justify-between p-4 border rounded-md bg-gray-50 mb-3">
+    <div>
+        <p class="font-semibold text-gray-900">{{ edu.degree }}</p>
+        <p class="text-sm text-gray-600">{{ edu.institution }}</p>
+        <p class="text-xs text-gray-500">{{ edu.start_year }} - {{ edu.end_year }}</p>
+    </div>
+    <div class="flex gap-5">
+        <!-- Simple Edit Button -->
+        <a href="{% url 'linkedinoptimizer:edit_education' edu.id %}"
+            class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+            Edit
+        </a>
+
+        <!-- Simple Delete Button -->
+        <form action="{% url 'linkedinoptimizer:delete_education' edu.id %}" method="POST" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                onclick="return confirm('Delete this education?')">
+                Delete
+            </button>
+        </form>
+    </div>
+</div>
+{% empty %}
+<p class="text-gray-500">No education added yet.</p>
+{% endfor %}
+
+    <details class="w-full mt-6 border rounded-md bg-gray-50 p-4">
+        <summary class="cursor-pointer text-blue-700 hover:underline font-semibold">+ Add education</summary>
+        <form method="POST" class="mt-4 space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Degree</label>
+                {{ form.degree }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                {{ form.institution }}
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Start Year</label>
+                    {{ form.start_year }}
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">End Year</label>
+                    {{ form.end_year }}
+                </div>
+            </div>
+            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-900">Save</button>
+        </form>
+    </details>
+    {% if educations %}
+    <div class="flex justify-end mt-6">
+        <a href="{% url 'linkedinoptimizer:linkedin_skill' %}"
+            class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">
+            Next
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Edit Certification</h2>
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            {{ form.title|add_class:"w-full border rounded-md p-2" }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Issuer</label>
+            {{ form.issuer|add_class:"w-full border rounded-md p-2" }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Date Issued</label>
+            {{ form.date_issued|add_class:"w-full border rounded-md p-2" }}
+        </div>
+        {% if form.description %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            {{ form.description|add_class:"w-full border rounded-md p-2" }}
+        </div>
+        {% endif %}
+        <div class="flex justify-between">
+            <a href="{% url 'linkedinoptimizer:linkedin_certification' %}" class="text-blue-600 hover:underline">←
+                Back</a>
+            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-900">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

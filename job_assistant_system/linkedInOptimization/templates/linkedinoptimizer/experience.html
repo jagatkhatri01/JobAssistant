@@ -1,0 +1,57 @@
+{% extends 'core/layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-xl border space-y-6">
+    <h2 class="text-2xl font-bold mb-4 text-gray-800">Work Experience</h2>
+
+    {% for exp in experiences %}
+    <div class="flex items-center justify-between p-4 border rounded-md bg-gray-50 mb-3">
+        <div>
+            <p class="font-semibold text-gray-900">{{ exp.title }}</p>
+            <p class="text-sm text-gray-600">{{ exp.company }}</p>
+            <p class="text-xs text-gray-500">
+                {{ exp.start_date|date:"M Y" }} -
+                {% if exp.currently_working %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+            </p>
+            {% if exp.description %}
+            <p class="text-sm text-gray-700 mt-1">{{ exp.description }}</p>
+            {% endif %}
+        </div>
+        <div class="flex gap-5">
+            <a href="{% url 'linkedinoptimizer:edit_experience' exp.id %}"
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">
+                Edit
+            </a>
+            <form action="{% url 'linkedinoptimizer:delete_experience' exp.id %}" method="POST" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                    onclick="return confirm('Delete this experience?')">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-gray-500">No experience added yet.</p>
+    {% endfor %}
+
+    <details class="w-full mt-6 border rounded-md bg-gray-50 p-4">
+        <summary class="cursor-pointer text-blue-600 hover:underline font-semibold">+ Add Experience</summary>
+        <form method="POST" class="mt-4 space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-900">Save</button>
+        </form>
+    </details>
+
+    {% if experiences %}
+    <div class="flex justify-end mt-6">
+        <a href="{% url 'linkedinoptimizer:linkedin_education' %}"
+            class="bg-blue-700 text-white px-6 py-2 rounded-md hover:bg-blue-900 transition">
+            Next
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
