@@ -1,0 +1,97 @@
+{% extends 'core/layout.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto my-8">
+    <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-black">
+            <h1 class="text-2xl font-bold">LinkedIn Profile Optimization</h1>
+            <p class="mt-1 text-blue-100">For {{ profile.name }}</p>
+        </div>
+
+        <!-- Suggestion Container -->
+        <div class="p-6">
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <h2 class="text-xl font-semibold text-gray-800">Your Optimized Profile Preview</h2>
+                <p class="text-gray-600 mt-1">Based on your current information</p>
+            </div>
+
+            <!-- LinkedIn Profile Suggestion -->
+            <div class="border border-gray-200 rounded-lg p-6 linkedin-profile">
+                {{ suggestion|safe }}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row justify-end gap-4">
+                <a href=""
+                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 text-center">
+                    Edit Profile Data
+                    
+                </a>
+                <button id="copy-btn"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center justify-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3">
+                        </path>
+                    </svg>
+                    Copy to Clipboard
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .linkedin-profile h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+
+    .linkedin-profile h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .linkedin-profile p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: #4b5563;
+    }
+
+    .linkedin-profile ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .linkedin-profile li {
+        margin-bottom: 0.5rem;
+    }
+
+    .linkedin-profile strong {
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+</style>
+
+<script>
+    document.getElementById('copy-btn').addEventListener('click', function () {
+        const profileContent = document.querySelector('.linkedin-profile').innerText;
+        navigator.clipboard.writeText(profileContent).then(() => {
+            const originalText = this.innerHTML;
+            this.innerHTML = '✓ Copied!';
+            setTimeout(() => {
+                this.innerHTML = originalText;
+            }, 2000);
+        });
+    });
+</script>
+{% endblock %}
