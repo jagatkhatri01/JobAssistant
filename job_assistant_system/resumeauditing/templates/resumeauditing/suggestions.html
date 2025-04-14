@@ -1,54 +1,45 @@
 {% extends 'core/layout.html' %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8 max-w-3xl">
-    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Resume Suggestions</h1>
+<div class="container mx-auto px-4 py-10 max-w-3xl font-sans">
+    <!-- Header -->
+    <div class="text-center mb-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Resume Improvement Suggestions</h1>
+        <p class="text-gray-600 text-base">Review the section-wise suggestions below to enhance your resume.</p>
+    </div>
 
-    <div class="space-y-6">
+    <!-- Suggestions Card -->
+    <div class="bg-white rounded-xl shadow-md divide-y divide-gray-200">
         {% for section in suggestions %}
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-            <!-- Colorful Section Header -->
-            <div class="px-6 py-4 {% cycle 'bg-blue-600' 'bg-green-600' 'bg-purple-600' %}">
-                <h2 class="text-xl font-semibold text-white">
-                    {{ section.section_title }}
-                </h2>
-            </div>
+        <div class="py-6 px-6">
+            <!-- Section Title -->
+            <h2 class="text-xl font-semibold text-blue-700 mb-4">{{ section.section_title }}</h2>
 
-            <!-- Suggestions List -->
-            <div class="divide-y divide-gray-100">
+            <!-- Bullet List -->
+            <ul class="space-y-3">
                 {% for item in section.items %}
-                <div class="px-6 py-4">
-                    <div class="flex items-start">
-                        <span class="text-blue-500 mr-3">•</span>
-                        <p class="text-gray-700">{{ item }}</p>
-                    </div>
-                </div>
+                <li class="flex items-start">
+                    <span class="text-blue-600 text-xl leading-snug mr-3 mt-1">•</span>
+                    <p class="text-gray-800 leading-relaxed text-base">{{ item }}</p>
+                </li>
+                {% empty %}
+                <li class="text-gray-500">No suggestions for this section.</li>
                 {% endfor %}
-            </div>
+            </ul>
         </div>
         {% endfor %}
     </div>
 
-    <div class="mt-8 text-center">
+    <!-- Actions -->
+    <div class="mt-10 flex justify-center gap-4">
         <a href="{% url 'resumeauditing:upload_and_audit_resume' %}"
-            class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            class="px-6 py-2 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">
             Upload New Resume
         </a>
+        <button onclick="window.print()"
+            class="px-6 py-2 bg-gray-100 text-gray-700 font-medium rounded hover:bg-gray-200 transition">
+            Print Suggestions
+        </button>
     </div>
 </div>
-
-<style>
-    /* Smooth color transitions */
-    .bg-blue-600 {
-        transition: background-color 0.3s ease;
-    }
-
-    .bg-green-600 {
-        transition: background-color 0.3s ease;
-    }
-
-    .bg-purple-600 {
-        transition: background-color 0.3s ease;
-    }
-</style>
 {% endblock %}

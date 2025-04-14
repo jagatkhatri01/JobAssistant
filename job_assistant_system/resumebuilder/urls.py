@@ -11,6 +11,6 @@ urlpatterns = [
     path('template-selector/', template_selector, name='template_selector'),
     path('preview/<str:template_name>/', views.preview_template, name='preview_template'),
     path('save_edited_resume/', views.save_edited_resume, name='save_edited_resume'),
-    # path('download_pdf/', views.download_pdf, name='download_pdf')
+
 
 ]

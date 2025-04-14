@@ -69,7 +69,8 @@
             class="absolute inset-0 w-full bg-black bg-opacity-50 flex flex-col justify-center space-y-4 px-20 md:px-[11rem] ">
             <h1 class="font-bold text-white text-3xl md:text-6xl">Elevate your career</h1>
             <p class="text-white text-lg md:text-2xl">Unlock your potential with AI tools</p>
-            <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-fit">VIEW SERVICES</button>
+            <a href="#services" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-fit">VIEW SERVICES</a>
+            <!-- <button class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-fit">VIEW SERVICES</button> -->
         </div>
     </div>
 
@@ -117,7 +118,7 @@
                         class="w-full md:h-[15rem]  object-cover rounded-t-lg" />
                 </div>
                 <div class="p-6">
-                    <a href="#"><h3 class="hover:text-green-600 text-black font-semibold text-lg mb-2 md:text-2xl">
+                    <a href="{% url 'skill_recommendation:skill_list' %}"><h3 class="hover:text-green-600 text-black font-semibold text-lg mb-2 md:text-2xl">
                         Skill-Building resources <span class="text-black">➤</span></a>
                     
                     </h3>
@@ -138,6 +139,21 @@
                     </h3>
                     <p class="text-gray-700 text-base leading-relaxed md:text-xl">
                         Optimize your resume with AI-driven insights.
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white shadow-md rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out">
+                <div class="">
+                    <img src="{% static '/images/img5.jpeg' %}" alt="CV creation image" class="w-full md:h-[15rem] object-cover rounded-t-lg" />
+                </div>
+                <div class="p-6">
+                    <a href=""></a>
+                    <h3 class="hover:text-green-600 text-black font-semibold text-lg mb-2 md:text-2xl">
+                        <a href="{% url 'linkedinoptimizer:linkedin_basicinfo' %}">AI-Powered LinkedinOptimization</a>
+                       <span class="text-black">➤</span>
+                    </h3>
+                    <p class="text-gray-700 text-base leading-relaxed md:text-xl">
+                        Optimize your linkedin profile with AI-driven insights.
                     </p>
                 </div>
             </div>

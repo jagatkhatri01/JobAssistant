@@ -1,0 +1,27 @@
+<!-- registration/verification_email.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Email Verification</title>
+</head>
+
+<body>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #2563eb;">Welcome to Our Site!</h2>
+        <p>Hello {{ user.email }},</p>
+        <p>Thank you for registering. Please verify your email address by clicking the button below:</p>
+
+        <div style="margin: 20px 0;">
+            <a href="{{ verification_url }}"
+                style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
+                Verify Email
+            </a>
+        </div>
+
+        <p>If you didn't create an account with us, please ignore this email.</p>
+        <p>Best regards,<br>The Team</p>
+    </div>
+</body>
+
+</html>

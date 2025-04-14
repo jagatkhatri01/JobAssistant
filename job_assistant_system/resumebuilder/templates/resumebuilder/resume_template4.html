@@ -13,18 +13,18 @@
     <div class="max-w-3xl mx-auto my-10 bg-white p-8 rounded-lg shadow-md">
 
         <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold">Jane Smith</h1>
-            <p class="text-lg text-gray-600">Professional Title | Industry</p>
-            <p class="text-sm mt-2 text-gray-500">
+        <div class="text-center mb-8" data-editable="header">
+            <h1 class="text-3xl font-bold" data-editable="name">Jane Smith</h1>
+            <p class="text-lg text-gray-600" data-editable="title">Professional Title | Industry</p>
+            <p class="text-sm mt-2 text-gray-500" data-editable="contact">
                 janesmith@email.com | +1 234 567 8901 | LinkedIn.com/in/janesmith
             </p>
         </div>
 
         <!-- Section: Profile -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="profile-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Profile</h2>
-            <p class="text-sm text-gray-700">
+            <p class="text-sm text-gray-700" data-editable="profile-text">
                 Motivated and results-driven professional with [X years] of experience in [industry/field]. Adept at
                 problem-solving, cross-functional collaboration, and delivering high-quality outcomes under pressure.
                 Seeking to contribute expertise and energy to a dynamic organization.
@@ -32,28 +32,28 @@
         </section>
 
         <!-- Section: Experience -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="experience-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Professional Experience</h2>
 
-            <div class="mb-4">
+            <div class="mb-4" data-editable="experience-1">
                 <div class="flex justify-between text-sm font-medium">
-                    <span>Senior Analyst – ABC Corp</span>
-                    <span class="text-gray-500">Mar 2020 – Present</span>
+                    <span data-editable="job-title-1">Senior Analyst – ABC Corp</span>
+                    <span class="text-gray-500" data-editable="job-dates-1">Mar 2020 – Present</span>
                 </div>
-                <p class="text-sm italic text-gray-600">New York, NY</p>
-                <ul class="list-disc list-inside mt-1 text-sm text-gray-700">
+                <p class="text-sm italic text-gray-600" data-editable="job-location-1">New York, NY</p>
+                <ul class="list-disc list-inside mt-1 text-sm text-gray-700" data-editable="job-description-1">
                     <li>Led strategic analysis projects that improved operational efficiency by 20%</li>
                     <li>Collaborated with cross-department teams to streamline reporting systems</li>
                 </ul>
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4" data-editable="experience-2">
                 <div class="flex justify-between text-sm font-medium">
-                    <span>Junior Consultant – XYZ Solutions</span>
-                    <span class="text-gray-500">Jan 2018 – Feb 2020</span>
+                    <span data-editable="job-title-2">Junior Consultant – XYZ Solutions</span>
+                    <span class="text-gray-500" data-editable="job-dates-2">Jan 2018 – Feb 2020</span>
                 </div>
-                <p class="text-sm italic text-gray-600">San Francisco, CA</p>
-                <ul class="list-disc list-inside mt-1 text-sm text-gray-700">
+                <p class="text-sm italic text-gray-600" data-editable="job-location-2">San Francisco, CA</p>
+                <ul class="list-disc list-inside mt-1 text-sm text-gray-700" data-editable="job-description-2">
                     <li>Developed client-facing reports and dashboards using data visualization tools</li>
                     <li>Assisted senior consultants with business transformation projects</li>
                 </ul>
@@ -61,18 +61,18 @@
         </section>
 
         <!-- Section: Education -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="education-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Education</h2>
-            <div class="mb-2">
-                <p class="text-sm font-medium">Bachelor of Business Administration</p>
-                <p class="text-sm text-gray-600">University of Example, 2014 – 2018</p>
+            <div class="mb-2" data-editable="education-1">
+                <p class="text-sm font-medium" data-editable="degree">Bachelor of Business Administration</p>
+                <p class="text-sm text-gray-600" data-editable="school">University of Example, 2014 – 2018</p>
             </div>
         </section>
 
         <!-- Section: Skills -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="skills-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Skills</h2>
-            <div class="flex flex-wrap gap-2 text-sm text-gray-700">
+            <div class="flex flex-wrap gap-2 text-sm text-gray-700" data-editable="skills-list">
                 <span class="bg-gray-200 px-3 py-1 rounded-full">Project Management</span>
                 <span class="bg-gray-200 px-3 py-1 rounded-full">Data Analysis</span>
                 <span class="bg-gray-200 px-3 py-1 rounded-full">Excel / Google Sheets</span>
@@ -83,18 +83,18 @@
         </section>
 
         <!-- Section: Certifications (Optional) -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="certifications-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Certifications</h2>
-            <ul class="list-disc list-inside text-sm text-gray-700">
+            <ul class="list-disc list-inside text-sm text-gray-700" data-editable="certifications-list">
                 <li>Certified Scrum Master (CSM) – Scrum Alliance</li>
                 <li>Google Data Analytics Certificate</li>
             </ul>
         </section>
 
         <!-- Section: Languages (Optional) -->
-        <section class="mb-6">
+        <section class="mb-6" data-editable="languages-section">
             <h2 class="text-xl font-semibold border-b border-gray-200 pb-1 mb-2">Languages</h2>
-            <p class="text-sm text-gray-700">English (Fluent), Spanish (Intermediate)</p>
+            <p class="text-sm text-gray-700" data-editable="languages-list">English (Fluent), Spanish (Intermediate)</p>
         </section>
 
     </div>

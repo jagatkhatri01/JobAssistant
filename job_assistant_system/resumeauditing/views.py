@@ -44,19 +44,29 @@ def extract_text_from_file(file):
 def get_ai_suggestions(resume_text):
     """Get structured resume suggestions from Gemini"""
     prompt = f"""
-    Analyze this resume and provide specific improvement suggestions in this exact format:
-    
-    **Section Name**
-    * Suggestion 1 for this section
-    * Suggestion 2 for this section
-    
-    Example:
-    **Education**
-    * Move graduation date to right margin
-    * List GPA if above 3.0
-    
-    Resume Content:
-    {resume_text}
+    You are a professional resume reviewer.
+
+Analyze the following resume content and provide structured, section-wise improvement suggestions in a clean format.
+
+Use this structure:
+[Section Name]
+• Clear, actionable suggestion 1
+• Suggestion 2
+• Suggestion 3
+...
+
+Focus on:
+- Making language more professional and concise
+- Quantifying achievements
+- Organizing work and education entries clearly
+- Formatting tips (e.g., bullet consistency, spacing)
+- Avoiding redundancy
+- Any visual design improvements
+
+Use bullet points (•) only. Do NOT use arrows, emojis, or strange characters. Avoid repeating section headers. Each section should have concise suggestions, and no empty sections.
+
+Resume Content:
+{resume_text}
     """
     
     try:
@@ -67,33 +77,52 @@ def get_ai_suggestions(resume_text):
             "section_title": "Error",
             "items": [f"Could not generate suggestions: {str(e)}"]
         }]
-
+    
 def parse_suggestions(ai_response):
-    """Convert AI response into structured data with better formatting"""
+    """Ultra-reliable parser with perfect formatting"""
     sections = []
     current_section = None
     
-    for line in ai_response.split('\n'):
-        line = line.strip()
-        if not line:
-            continue
+    # Normalize line breaks and clean input
+    lines = [line.strip() for line in ai_response.replace('\r\n', '\n').split('\n') if line.strip()]
+    
+    for line in lines:
+        # Detect ALL section header formats
+        if (line.startswith(('# ', '## ', '**', '* ')) or 
+            line.endswith(':') or
+            (line.upper() == line and 2 <= len(line.split()) <= 4)):
             
-        # Detect section headers (handles both **Section** and Section: formats)
-        if (line.startswith('**') and line.endswith('**')) or line.endswith(':'):
-            section_title = line.strip('*:').strip()
-            current_section = {
-                "section_title": section_title,
-                "items": []
-            }
-            sections.append(current_section)
-            
-        # Detect bullet points and numbered items
-        elif (line.startswith('* ') or (line.startswith('.') and line[1].isdigit())):
-            suggestion = line[2:].strip() if line.startswith('* ') else line[1:].strip()
-            if current_section:
-                current_section["items"].append(suggestion)
+            section_title = line.strip('#*: ').strip()
+            if section_title:  # Only add non-empty titles
+                current_section = {
+                    "section_title": section_title.title(),
+                    "items": []
+                }
+                sections.append(current_section)
+        
+        # Detect ALL bullet point formats with line continuation
+        elif (line.startswith(('- ', '• ', '* ', '+ ', '~ '))) or line[0].isdigit():
+            # Handle wrapped lines (like "Devel-oped")
+            if current_section and current_section['items'] and (
+                len(line) < 40 or not line[0].isalnum()):
+                # Continue previous item
+                current_section['items'][-1] += ' ' + line.strip('-*• ')
+            else:
+                # New bullet point
+                clean_line = line.split(' ', 1)[1] if ' ' in line else line
+                suggestion = clean_line.strip('-*• ').replace('**', '').strip()
+                if current_section and suggestion:
+                    current_section["items"].append(suggestion)
+    
+    # Final quality control
+    if not sections:
+        return [{
+            "section_title": "Improvement Suggestions",
+            "items": ["No actionable suggestions found in the AI response."]
+        }]
     
     return sections
+
 
 def upload_and_audit_resume(request):
     if request.method == 'POST':

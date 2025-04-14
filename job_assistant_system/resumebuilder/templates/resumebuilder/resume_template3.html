@@ -1,4 +1,3 @@
-Anish Pokhrel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,10 +24,10 @@ Anish Pokhrel
     <div class="max-w-5xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg">
 
         <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="text-3xl font-bold">Alex Johnson</h1>
-            <p class="text-lg text-gray-600">Full Stack Developer</p>
-            <p class="text-sm text-gray-500">
+        <header class="text-center mb-8" data-editable="header-section">
+            <h1 class="text-3xl font-bold" data-editable="name">Alex Johnson</h1>
+            <p class="text-lg text-gray-600" data-editable="title">Full Stack Developer</p>
+            <p class="text-sm text-gray-500" data-editable="contact-info">
                 alex.johnson@email.com | (123) 456-7890 | alexjohnson.dev | LinkedIn
             </p>
         </header>
@@ -38,18 +37,18 @@ Anish Pokhrel
             <!-- Left Column -->
             <div class="md:col-span-1 space-y-6">
                 <!-- Profile -->
-                <section>
+                <section data-editable="profile-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Profile</h2>
-                    <p class="text-sm text-gray-700">
+                    <p class="text-sm text-gray-700" data-editable="profile-text">
                         Passionate developer with 5+ years of experience building web apps and tools using JavaScript,
                         React, and Node.js. Always eager to learn and collaborate.
                     </p>
                 </section>
 
                 <!-- Skills -->
-                <section>
+                <section data-editable="skills-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Skills</h2>
-                    <ul class="text-sm list-disc list-inside text-gray-700">
+                    <ul class="text-sm list-disc list-inside text-gray-700" data-editable="skills-list">
                         <li>JavaScript / TypeScript</li>
                         <li>React, Next.js</li>
                         <li>Node.js, Express</li>
@@ -59,15 +58,15 @@ Anish Pokhrel
                 </section>
 
                 <!-- Languages -->
-                <section>
+                <section data-editable="languages-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Languages</h2>
-                    <p class="text-sm">English (Fluent), French (Conversational)</p>
+                    <p class="text-sm" data-editable="languages-text">English (Fluent), French (Conversational)</p>
                 </section>
 
                 <!-- Certifications -->
-                <section>
+                <section data-editable="certifications-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Certifications</h2>
-                    <ul class="text-sm list-disc list-inside text-gray-700">
+                    <ul class="text-sm list-disc list-inside text-gray-700" data-editable="certifications-list">
                         <li>AWS Certified Developer</li>
                         <li>Scrum Master Certification</li>
                     </ul>
@@ -77,28 +76,28 @@ Anish Pokhrel
             <!-- Right Column -->
             <div class="md:col-span-2 space-y-6">
                 <!-- Experience -->
-                <section>
+                <section data-editable="experience-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Experience</h2>
 
-                    <div class="mb-4">
+                    <div class="mb-4" data-editable="experience-1">
                         <div class="flex justify-between text-sm font-medium">
-                            <span>Lead Developer, TechNova Inc.</span>
-                            <span class="text-gray-500">2021 – Present</span>
+                            <span data-editable="job-title-1">Lead Developer, TechNova Inc.</span>
+                            <span class="text-gray-500" data-editable="job-dates-1">2021 – Present</span>
                         </div>
-                        <p class="text-sm text-gray-600 italic">San Francisco, CA</p>
-                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1">
+                        <p class="text-sm text-gray-600 italic" data-editable="job-location-1">San Francisco, CA</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1" data-editable="job-description-1">
                             <li>Designed and led the development of a SaaS dashboard used by 500+ clients.</li>
                             <li>Mentored junior developers and conducted code reviews.</li>
                         </ul>
                     </div>
 
-                    <div>
+                    <div data-editable="experience-2">
                         <div class="flex justify-between text-sm font-medium">
-                            <span>Frontend Engineer, WebWorks</span>
-                            <span class="text-gray-500">2018 – 2021</span>
+                            <span data-editable="job-title-2">Frontend Engineer, WebWorks</span>
+                            <span class="text-gray-500" data-editable="job-dates-2">2018 – 2021</span>
                         </div>
-                        <p class="text-sm text-gray-600 italic">Remote</p>
-                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1">
+                        <p class="text-sm text-gray-600 italic" data-editable="job-location-2">Remote</p>
+                        <ul class="list-disc list-inside text-sm text-gray-700 mt-1" data-editable="job-description-2">
                             <li>Built reusable components and maintained UI library for internal use.</li>
                             <li>Collaborated with designers and product managers on 10+ major releases.</li>
                         </ul>
@@ -106,11 +105,11 @@ Anish Pokhrel
                 </section>
 
                 <!-- Education -->
-                <section>
+                <section data-editable="education-section">
                     <h2 class="text-lg font-semibold border-b pb-1 mb-2">Education</h2>
-                    <div>
-                        <p class="text-sm font-medium">B.Sc. in Computer Science</p>
-                        <p class="text-sm text-gray-600">University of Example | 2014 – 2018</p>
+                    <div data-editable="education-1">
+                        <p class="text-sm font-medium" data-editable="degree">B.Sc. in Computer Science</p>
+                        <p class="text-sm text-gray-600" data-editable="school">University of Example | 2014 – 2018</p>
                     </div>
                 </section>
             </div>

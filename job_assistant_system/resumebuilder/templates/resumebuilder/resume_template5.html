@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50">
+    <div class="max-w-3xl mx-auto my-8 bg-white shadow-md rounded-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-white" data-editable="header-section">
+            <h1 class="text-3xl font-bold" data-editable="full-name">John Doe</h1>
+            <p class="text-blue-100" data-editable="job-title">Senior Software Engineer</p>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-6 grid md:grid-cols-3 gap-6">
+            <!-- Left Column -->
+            <div class="space-y-6">
+                <!-- Contact -->
+                <div data-editable="contact-section">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Contact</h2>
+                    <ul class="mt-2 space-y-1 text-gray-700">
+                        <li class="flex items-center" data-editable="email">
+                            <span class="mr-2">📧</span> johndoe@example.com
+                        </li>
+                        <li class="flex items-center" data-editable="phone">
+                            <span class="mr-2">📱</span> (123) 456-7890
+                        </li>
+                        <li class="flex items-center" data-editable="linkedin">
+                            <span class="mr-2">🌐</span> linkedin.com/in/johndoe
+                        </li>
+                        <li class="flex items-center" data-editable="address">
+                            <span class="mr-2">📍</span> San Francisco, CA
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Skills -->
+                <div data-editable="skills-section">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Skills</h2>
+                    <ul class="mt-2 space-y-1" data-editable="skills-list">
+                        <li>JavaScript/TypeScript</li>
+                        <li>React & Next.js</li>
+                        <li>Node.js</li>
+                        <li>Tailwind CSS</li>
+                        <li>AWS</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="md:col-span-2 space-y-6">
+                <!-- Summary -->
+                <div data-editable="summary-section">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Summary</h2>
+                    <p class="mt-2 text-gray-700">
+                        Passionate software engineer with 5+ years of experience building scalable web applications.
+                        Specialized in modern JavaScript frameworks and cloud architecture.
+                    </p>
+                </div>
+
+                <!-- Experience -->
+                <div data-editable="experience-section">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Experience</h2>
+                    <div class="mt-4 space-y-4">
+                        <div data-editable="experience-1">
+                            <h3 class="font-bold">Senior Frontend Developer</h3>
+                            <p class="text-gray-600" data-editable="experience-1-duration">Tech Corp Inc. • 2020 -
+                                Present</p>
+                            <ul class="mt-1 list-disc list-inside text-gray-700"
+                                data-editable="experience-1-description">
+                                <li>Led migration from Angular to React, improving performance by 40%</li>
+                                <li>Implemented CI/CD pipelines reducing deployment time by 65%</li>
+                            </ul>
+                        </div>
+                        <div data-editable="experience-2">
+                            <h3 class="font-bold">Software Engineer</h3>
+                            <p class="text-gray-600" data-editable="experience-2-duration">Web Solutions LLC • 2018 -
+                                2020</p>
+                            <ul class="mt-1 list-disc list-inside text-gray-700"
+                                data-editable="experience-2-description">
+                                <li>Developed REST APIs with Node.js handling 10K+ daily requests</li>
+                                <li>Optimized database queries reducing latency by 30%</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div data-editable="education-section">
+                    <h2 class="text-xl font-semibold border-b border-gray-200 pb-2">Education</h2>
+                    <div class="mt-2" data-editable="education-1">
+                        <h3 class="font-bold">B.S. Computer Science</h3>
+                        <p class="text-gray-600" data-editable="education-1-duration">Stanford University • 2014 - 2018
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

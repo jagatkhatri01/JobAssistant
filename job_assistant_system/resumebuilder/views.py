@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-
+from io import BytesIO
+from xhtml2pdf import pisa
+import json
 # Create your views here.
 from django.shortcuts import render, redirect
 from .forms import ResumeForm
@@ -47,10 +49,10 @@ def template_selector(request):
     # Define the templates available
     templates = [
         {'name': 'Template 1', 'path': 'resumebuilder/resume_template1.html'},
-        {'name': 'Template 2', 'path': 'resumebuilder/resume_template2.html'},
-        {'name': 'Template 3', 'path': 'resumebuilder/resume_template3.html'},
         {'name': 'Template 4', 'path': 'resumebuilder/resume_template4.html'},
-        {'name': 'Template 5', 'path': 'resumebuilder/resume_template6.html'}
+        {'name': 'Template 6', 'path': 'resumebuilder/resume_template6.html'},
+        {'name': 'Template 2', 'path': 'resumebuilder/resume_template2.html'},
+        {'name': 'Template 3', 'path': 'resumebuilder/resume_template3.html'}
     ]
     
     context = {
@@ -74,7 +76,8 @@ def preview_template(request, template_name):
         'Template 2': 'resumebuilder/resume_template2.html',
         'Template 3': 'resumebuilder/resume_template3.html',
         'Template 4': 'resumebuilder/resume_template4.html',
-        'Template 5': 'resumebuilder/resume_template6.html',
+        'Template 5': 'resumebuilder/resume_template5.html',
+        'Template 6': 'resumebuilder/resume_template6.html'
     }
 
     # Check if the template_name is valid, otherwise redirect
@@ -115,25 +118,3 @@ def save_edited_resume(request):
             return JsonResponse({'status': 'error', 'message': str(e)})
     return JsonResponse({'status': 'error', 'message': 'Invalid request'})
 
-# @login_required
-# def download_pdf(request):
-#     resume_id = request.session.get('resume_id')
-#     if not resume_id:
-#         return redirect('resumebuilder:create_resume')
-
-#     # Check for edited version
-#     edited_resume = request.session.get('edited_resume', {})
-#     if edited_resume.get('html_content'):
-#         html_content = edited_resume['html_content']
-#     else:
-#         # Get the original template
-#         template_name = edited_resume.get('template_name', 'Template 1')
-#         template_path = f'resumebuilder/resume_template{template_name.split()[-1]}.html'
-#         resume = get_object_or_404(Resume, id=resume_id)
-#         html_content = render_to_string(template_path, {'resume': resume})
-
-#     # Generate PDF
-#     pdf_file = HTML(string=html_content).write_pdf()
-#     response = HttpResponse(pdf_file, content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="resume.pdf"'
-#     return response
