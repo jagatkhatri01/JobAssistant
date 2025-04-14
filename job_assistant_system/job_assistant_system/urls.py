@@ -23,6 +23,10 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('resumebuilder.urls', namespace='resumebuilder')),
     path('', include('resumeauditing.urls', namespace='resumeauditing')),
+    path('', include('job_listing.urls', namespace='job_listing')),
+    path('', include('skill_recommendation.urls', namespace='skill_recommendation')),
+    path('linkedin/', include('linkedInOptimization.urls', namespace='linkedinoptimizer')),
+
 
 
 

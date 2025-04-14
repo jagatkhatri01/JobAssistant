@@ -34,7 +34,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'resumebuilder',
     'widget_tweaks',
     'resumeauditing',
+    'linkedInOptimization',
+    'job_listing',
+    'skill_recommendation',
 
 
 ]
@@ -165,3 +168,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# settings.py
+# settings.py (temporary change)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # For Gmail, adjust for other providers
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')  # Your email
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app password
+DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email

@@ -1,0 +1,39 @@
+{% extends 'core/layout.html' %}
+{% block title %}Resend Verification Email{% endblock %}
+
+{% block content %}
+<div class="flex flex-col justify-center items-center mt-8 w-screen h-full">
+    <div class="px-10 py-8 shadow-lg rounded-lg bg-slate-200 w-[25rem] md:w-[35rem]">
+        <h1 class="font-bold text-2xl mb-6 text-center">Resend Verification Email</h1>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div
+            class="mb-4 p-3 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="email" class="text-md font-semibold mb-1">Email Address</label>
+                <input type="email" name="email" required
+                    class="px-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-700">
+            </div>
+
+            <button type="submit"
+                class="bg-blue-700 font-bold text-white px-4 py-2 rounded-lg hover:bg-blue-600 w-full mt-4">
+                Resend Verification Email
+            </button>
+        </form>
+
+        <div class="text-center mt-4">
+            <p class="text-gray-700">Remembered your password?
+                <a href="{% url 'login' %}" class="text-blue-700 font-bold hover:underline">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

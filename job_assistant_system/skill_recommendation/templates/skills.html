@@ -1,0 +1,75 @@
+<!-- Category Filter -->
+
+{% extends 'core/layout.html' %}
+{% block content %}
+{% load static %}
+<div class="bg-gray-50">
+<div class="container mx-auto px-4 py-6">
+    <div class="flex flex-wrap gap-3 mb-8">
+        <a href="?category="
+            class="px-4 py-2 rounded-full {% if not active_category %}bg-indigo-600 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">
+            All Skills
+        </a>
+        {% for category in categories %}
+        <a href="?category={{ category.slug }}"
+            class="px-4 py-2 rounded-full {% if active_category == category.slug %}bg-indigo-600 text-white{% else %}bg-gray-200 hover:bg-gray-300{% endif %}">
+            {{ category.name }}
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Skill Grid (existing code remains the same) -->
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-7">
+        {% for skill in skills %}
+        <div class="bg-white shadow-md rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out skill-card"
+            data-category="{{ skill.category.slug }}">
+            <img src="{{ skill.image.url }}" alt="{{ skill.title }}"
+                class="w-full md:h-[15rem] object-cover rounded-t-lg">
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">{{ skill.title }}</h3>
+                <p class="text-gray-600 mb-4">{{ skill.description }}</p>
+                <a href="{{ skill.course_link }}"
+                    class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded text-center w-fit">
+                    Learn More
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+<!-- Optional: Add this if you want client-side filtering without page reload -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryLinks = document.querySelectorAll('[href^="?category="]');
+
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = new URL(this.href);
+                const category = url.searchParams.get('category') || '';
+
+                // Update active state
+                categoryLinks.forEach(l => {
+                    l.classList.toggle('bg-indigo-600', l === this);
+                    l.classList.toggle('text-white', l === this);
+                    l.classList.toggle('bg-gray-200', l !== this);
+                    l.classList.toggle('hover:bg-gray-300', l !== this);
+                });
+
+                // Filter skills
+                document.querySelectorAll('.skill-card').forEach(card => {
+                    if (!category || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Update URL without reload
+                window.history.pushState({}, '', this.href);
+            });
+        });
+    });
+</script>

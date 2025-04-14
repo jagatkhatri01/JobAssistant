@@ -5,33 +5,108 @@ Preview Your Resume
 {% endblock %}
 
 {% block content %}
-<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8">
+<style>
+    @media print {
+        body {
+            background: #fff !important;
+        }
+
+        body * {
+            visibility: hidden;
+        }
+
+        #resume-preview,
+        #resume-preview * {
+            visibility: visible;
+        }
+
+        #resume-preview {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 15mm;
+            box-shadow: none;
+            background: #fff !important;
+        }
+    }
+
+    [contenteditable="true"] {
+        border: 1px dashed #3b82f6;
+        padding: 0.25rem;
+        border-radius: 0.25rem;
+        background-color: #f0f9ff;
+    }
+
+    .btn-loading {
+        position: relative;
+        pointer-events: none;
+    }
+
+    .btn-loading:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -9px 0 0 -9px;
+        width: 18px;
+        height: 18px;
+        border: 2px solid transparent;
+        border-top-color: currentColor;
+        border-radius: 50%;
+        animation: spin 0.75s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #resume-preview {
+        background-color: #fff;
+        color: #000;
+        font-family: 'Arial', sans-serif;
+        box-shadow: none !important;
+        overflow: visible;
+        width: 794px;
+        /* A4 width in pixels (96 DPI) */
+    }
+</style>
+
+<div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-8">
     <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Preview Your Resume</h1>
 
-    <!-- Display the selected template -->
-    <div class="preview mb-4" id="resume-preview">
+    <!-- Resume Container -->
+    <div class="preview mb-4 bg-white" id="resume-preview" style="box-sizing: border-box;background-color: #fff !important;">
         {% include template_path with resume=resume %}
     </div>
 
-    <!-- Options to edit or download -->
-    <div class="text-center mt-6">
+    <!-- Actions -->
+    <div class="text-center mt-6 no-print">
         <button id="edit-toggle"
             class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-400 mr-4">Edit</button>
-        <a href=""
-            class="bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-600">Download PDF</a>
+        <button id="download-pdf" class="bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
+            Download PDF
+        </button>
     </div>
 </div>
+
+<!-- PDF Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const editToggle = document.getElementById('edit-toggle');
+        const downloadBtn = document.getElementById('download-pdf');
         const resumePreview = document.getElementById('resume-preview');
         let isEditing = false;
 
+        // Toggle editing
         editToggle.addEventListener('click', function () {
+            const editableElements = resumePreview.querySelectorAll('[data-editable]');
             if (!isEditing) {
-                // Enable editing
-                const editableElements = resumePreview.querySelectorAll('[data-editable]');
                 editableElements.forEach(el => {
                     el.setAttribute('contenteditable', 'true');
                     el.classList.add('border', 'border-blue-200', 'p-1', 'rounded');
@@ -41,8 +116,6 @@ Preview Your Resume
                 editToggle.classList.add('bg-green-500');
                 isEditing = true;
             } else {
-                // Save changes
-                const editableElements = resumePreview.querySelectorAll('[data-editable]');
                 editableElements.forEach(el => {
                     el.setAttribute('contenteditable', 'false');
                     el.classList.remove('border', 'border-blue-200', 'p-1', 'rounded');
@@ -52,10 +125,8 @@ Preview Your Resume
                 editToggle.classList.add('bg-yellow-500');
                 isEditing = false;
 
-                // Get the updated HTML
                 const updatedHtml = resumePreview.innerHTML;
 
-                // Send to server (you'll need to implement this endpoint)
                 fetch('{% url "resumebuilder:save_edited_resume" %}', {
                     method: 'POST',
                     headers: {
@@ -68,6 +139,58 @@ Preview Your Resume
                     })
                 });
             }
+        });
+
+        // Download PDF
+        downloadBtn.addEventListener('click', function () {
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<span class="btn-loading"></span> Generating PDF...';
+            downloadBtn.disabled = true;
+
+            // Clone and clean DOM
+            const source = document.getElementById('resume-preview');
+            const clone = source.cloneNode(true);
+            clone.querySelectorAll('[contenteditable]').forEach(el => {
+                el.removeAttribute('contenteditable');
+                el.classList.remove('border', 'border-blue-200', 'p-1', 'rounded');
+            });
+
+            // Adjust styling for PDF
+            clone.style.width = '794px';
+            clone.style.minHeight = '1123px';
+            clone.style.padding = '40px';
+            clone.style.background = '#fff';
+
+            const opt = {
+                margin: 0,
+                filename: 'my_resume.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    scrollX: 0,
+                    scrollY: 0,
+                    logging: true,
+                    backgroundColor: '#FFFFFF'
+                },
+                jsPDF: {
+                    unit: 'pt',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(opt).from(clone).save().then(() => {
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+            }).catch(err => {
+                console.error('PDF generation failed:', err);
+                downloadBtn.innerHTML = 'Error! Try Again';
+                setTimeout(() => {
+                    downloadBtn.innerHTML = originalText;
+                    downloadBtn.disabled = false;
+                }, 2000);
+            });
         });
     });
 </script>
