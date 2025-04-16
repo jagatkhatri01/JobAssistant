@@ -114,7 +114,7 @@ DATABASES = {
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
         'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': 'postgresql://postgres:dHlnVGQaAbkMsEtWHRcqlvxKmMdcHgbA@metro.proxy.rlwy.net:34337/railway',
+        'HOST': 'metro.proxy.rlwy.net',
         'PORT': '34337',
     }
 }
