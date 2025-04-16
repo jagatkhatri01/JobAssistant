@@ -34,7 +34,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -59,6 +59,8 @@ INSTALLED_APPS = [
 
 
 ]
+
+
 
 AUTH_USER_MODEL = 'core.CustomUser'
 LOGIN_URL = '/login/'
@@ -119,6 +121,12 @@ DATABASES = {
     }
 }
 
+ADZUNA_CONFIG = {
+    'API_KEY': '412f9c50985c5fa5ef0707aa8459f803',  # Replace with your actual API key
+    'BASE_URL': 'https://api.adzuna.com/v1/api/jobs',
+    'COUNTRY_CODE': 'us',  # Change as needed
+    'APP_ID': '8b1cd1ef',  # For Adzuna
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

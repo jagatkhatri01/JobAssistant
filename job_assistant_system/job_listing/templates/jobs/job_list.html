@@ -1,0 +1,72 @@
+{% extends 'core/layout.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8 mx-auto">
+        <form method="get" class="card card-body">
+            <div class="row g-2">
+                <div class="col-md-5">
+                    {{ form.query }}
+                </div>
+                <div class="col-md-5">
+                    {{ form.location }}
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if page_obj %}
+<div class="row">
+    {% for job in page_obj %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ job.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ job.company.display_name }}</h6>
+                <p class="card-text">
+                    <i class="bi bi-geo-alt"></i> {{ job.location.display_name }}<br>
+                    <small>Posted: {{ job.created | date:"M d, Y" }}</small>
+                </p>
+                <a href="{% url 'jobs:job_detail' job.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1&query={{ search_query }}&location={{ search_location }}">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ page_obj.previous_page_number }}&query={{ search_query }}&location={{ search_location }}">Previous</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item disabled">
+            <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ page_obj.next_page_number }}&query={{ search_query }}&location={{ search_location }}">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link"
+                href="?page={{ page_obj.paginator.num_pages }}&query={{ search_query }}&location={{ search_location }}">Last</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% else %}
+<div class="alert alert-info">No jobs found. Try a different search.</div>
+{% endif %}
+{% endblock %}

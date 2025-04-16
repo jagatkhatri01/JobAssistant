@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,11 +25,11 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('resumebuilder.urls', namespace='resumebuilder')),
     path('', include('resumeauditing.urls', namespace='resumeauditing')),
-    path('', include('job_listing.urls', namespace='job_listing')),
+    path('jobs/', include('job_listing.urls', namespace='jobs')),
     path('', include('skill_recommendation.urls', namespace='skill_recommendation')),
     path('linkedin/', include('linkedInOptimization.urls', namespace='linkedinoptimizer')),
-
-
-
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

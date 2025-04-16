@@ -1,0 +1,30 @@
+{% extends 'core/layout.html' %}
+
+{% block content %}
+<h2 class="mb-4">My Job Applications</h2>
+
+{% if applications %}
+<div class="list-group">
+    {% for app in applications %}
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ app.job_title }}</h5>
+            <small>{{ app.applied_date | date:"M d, Y" }}</small>
+        </div>
+        <p class="mb-1">{{ app.company }} - {{ app.location }}</p>
+        <small>Status: <span class="badge bg-info">{{ app.application_status }}</span></small>
+        {% if app.notes %}
+        <div class="mt-2 p-2 bg-light rounded">
+            <small>{{ app.notes }}</small>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning">
+    You haven't applied to any jobs yet. <a href="{% url 'jobs:job_list' %}" class="alert-link">Browse jobs</a> to get
+    started.
+</div>
+{% endif %}
+{% endblock %}

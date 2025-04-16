@@ -291,7 +291,6 @@ def linkedin_suggestion_view(request):
         "certifications": []
     }
 
-    # Add education data
     educations = Education.objects.filter(profile=profile)
     for edu in educations:
         profile_data["education"].append({
@@ -300,7 +299,6 @@ def linkedin_suggestion_view(request):
             "period": f"{edu.start_year}-{edu.end_year}" if edu.end_year else f"{edu.start_year}-Present"
         })
 
-    # Add experience data
     experiences = Experience.objects.filter(profile=profile)
     for exp in experiences:
         profile_data["experience"].append({
@@ -311,11 +309,10 @@ def linkedin_suggestion_view(request):
             "current": exp.currently_working
         })
 
-    # Add skills
     skills = Skill.objects.filter(profile=profile)
     profile_data["skills"] = [skill.name for skill in skills]
 
-    # Add certifications
+
     certifications = Certification.objects.filter(profile=profile)
     for cert in certifications:
         profile_data["certifications"].append({
@@ -325,7 +322,7 @@ def linkedin_suggestion_view(request):
             "description": cert.description or ""
         })
 
-    # Construct the AI prompt
+
     prompt = f"""
     Generate a comprehensive LinkedIn profile optimization in HTML format based on the following data.
     The output should look like a real LinkedIn profile with proper sections and professional formatting.
