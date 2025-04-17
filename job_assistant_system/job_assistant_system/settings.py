@@ -140,6 +140,9 @@ DATABASES = {
         'PASSWORD': os.getenv('PASSWORD'),
         'HOST': 'metro.proxy.rlwy.net',
         'PORT': '34337',
+        'HOST': 'localhost',
+        'PORT': '5432',
+
     }
 }
 
