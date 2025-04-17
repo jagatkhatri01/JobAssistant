@@ -221,5 +221,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app 
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email
 SITE_URL = 'https://your-app-name.up.railway.app'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+SESSION_COOKIE_DOMAIN = '.railway.app' 
 
 CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app", 'https://*.railway.app']
