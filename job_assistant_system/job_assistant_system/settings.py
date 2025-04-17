@@ -109,6 +109,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'job_assistant_system.wsgi.application'
 
 
+import os
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.getenv("REDIS_URL", "redis://localhost:6379/0"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            # Optional: Improve performance
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+        },
+        "KEY_PREFIX": "yourapp_"  # Unique prefix for your app
+    }
+}
+
+# Optional: Cache sessions for faster auth
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
