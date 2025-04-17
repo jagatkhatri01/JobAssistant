@@ -207,7 +207,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 # settings.py
 # settings.py (temporary change)
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
