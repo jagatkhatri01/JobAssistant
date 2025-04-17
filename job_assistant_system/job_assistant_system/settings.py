@@ -166,6 +166,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# ✅ Required for collectstatic to work
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
