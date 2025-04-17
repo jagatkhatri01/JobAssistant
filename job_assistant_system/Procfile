@@ -1,0 +1,2 @@
+web: gunicorn job_assistant_system.wsgi --log-file - 
+web: python manage.py migrate && gunicorn job_assistant_system.wsgi
