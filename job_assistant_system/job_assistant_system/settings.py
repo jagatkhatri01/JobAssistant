@@ -188,13 +188,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+import os
 # ✅ Required for collectstatic to work
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
-import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+SESSION_COOKIE_DOMAIN = None
 # Enable compression and caching support
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
@@ -221,6 +222,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app 
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email
 SITE_URL = 'https://your-app-name.up.railway.app'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
-SESSION_COOKIE_DOMAIN = '.railway.app' 
 
-CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app", 'https://*.railway.app']
+
+CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app"]
