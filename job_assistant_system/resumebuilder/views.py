@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from io import BytesIO
-from xhtml2pdf import pisa
 import json
 # Create your views here.
 from django.shortcuts import render, redirect
