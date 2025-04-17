@@ -13,7 +13,7 @@
         <p>Thank you for registering. Please verify your email address by clicking the button below:</p>
 
         <div style="margin: 20px 0;">
-            <a href="https://{{ domain }}{% url 'your_verify_endpoint' uidb64=uid token=token %}"
+            <a href="{{ verification_url }}"
                 style="background-color: #2563eb; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">
                 Verify Email
             </a>
