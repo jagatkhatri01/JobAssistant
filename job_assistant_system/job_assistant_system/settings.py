@@ -218,6 +218,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')  # Your email
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app password
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email
+SITE_URL = 'https://your-app-name.up.railway.app'
 
-
-CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app", 'https://*.railway.app']
