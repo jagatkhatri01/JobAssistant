@@ -191,9 +191,7 @@ STATIC_URL = '/static/'
 import os
 # ✅ Required for collectstatic to work
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+
 
 SESSION_COOKIE_DOMAIN = None
 # Enable compression and caching support
