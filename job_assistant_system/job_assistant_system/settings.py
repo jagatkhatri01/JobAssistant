@@ -215,3 +215,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER')  # Your email
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app password
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email
+
+
+CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app/"]
