@@ -217,4 +217,4 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')  # Your email password or app 
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER') # Your email
 
 
-CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app/"]
+CSRF_TRUSTED_ORIGINS= ["https://jobassistant-production.up.railway.app"]
